@@ -3,7 +3,10 @@ import requests
 import json
 import time
 import csv
+'''
+    看准网每天的职位显示的网址会变化，以下网址对应的只是2020/9/3日的职位数据。
 
+'''
 # 加入请求头
 headers = {
     "Accept": "*/*",
@@ -11,25 +14,19 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36"
 }
 
-
 def create_csv():
     csv_head = ['positionName', 'companyName', 'companySize', 'industryName', 'city', 'salary',
                 'experience', 'education']
-    with open('kanzhun3.csv', 'w',newline="",encoding='utf-8') as f:
+    with open('kanzhun2.csv', 'w',newline="",encoding='utf-8') as f:
         csv_write = csv.DictWriter(f, fieldnames=csv_head)  # 提前预览列名，当下面代码写入数据时，会将其一一对应。
         #csv_write.writerow(csv_head)
         csv_write.writeheader()
 
 def add_csv(data):
-    path = "kanzhun3.csv"
+    path = "kanzhun2.csv"
     with open(path, 'a+',newline="",encoding='utf-8') as fd:
         w = csv.DictWriter(fd, data.keys())
         w.writerow(data)
-
-
-# 获取cookies值
-
-
 
 '''定义获取页数的函数'''
 def get_page(url):
@@ -76,15 +73,16 @@ def get_info( page):
 
             for result in results:
                 infos = {
-                    "positionName": result["positionName"],#名称
-                    "companyName": result["companyName"],#公司名称
-                    "companySize": result["scaleDes"],#公司规模
-                    "industryName": result["industryName"],#内容
-                    "city": result["cityName"],#城市
+                    "name": result["positionName"],#名称
+                    "company": result["companyName"],#公司名称
+                    "company_size": result["scaleDes"],#公司规模
+                    "field": result["industryName"],#内容
+                    "workarea": result["cityName"],#城市
                     "salary": result["salary"],  #工资
-                    "experience": result["experience"],#经验
+                    "background": result["experience"],#经验
                     "education": result["degree"],#学历
                 }
+
                 print(infos)
                 # 插入
                 add_csv(infos)

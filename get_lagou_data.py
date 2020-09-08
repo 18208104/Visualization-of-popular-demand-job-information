@@ -18,13 +18,13 @@ def create_csv():
     csv_head = ['positionName', 'companyFullName', 'companySize', 'industryField', 'financeStage', 'firstType',
                 'secondType', 'thirdType', 'positionLables', 'createTime', 'city', 'district', 'businessZones',
                 'salary', 'workYear', 'jobNature', 'education', 'positionAdvantage']
-    with open('lagou9.csv', 'w',newline="",encoding='utf-8') as f:
+    with open('lagou11.csv', 'w',newline="",encoding='utf-8') as f:
         csv_write = csv.DictWriter(f, fieldnames=csv_head)  # 提前预览列名，当下面代码写入数据时，会将其一一对应。
         #csv_write.writerow(csv_head)
         csv_write.writeheader()
 
 def add_csv(data):
-    path = "lagou9.csv"
+    path = "lagou11.csv"
     with open(path, 'a+',newline="",encoding='utf-8') as fd:
         w = csv.DictWriter(fd, data.keys())
         w.writerow(data)
@@ -74,7 +74,7 @@ def get_info(url, page):
         # 获取信息 并捕获异常
         try:
             html = requests.post(url, data=params, headers=headers, cookies=get_cookie(), timeout=40)
-            print(url, html.status_code)
+            print(pn,url, html.status_code)
             # 将网页的Html文件加载为json文件
             json_data = json.loads(html.text)
             # 解析json文件，后跟中括号为解析的路径
@@ -120,5 +120,5 @@ if __name__ == '__main__':
         "pn": 1,
         "kd": ""
     }
-    create_csv()
+    #create_csv()
     get_page(url, params)
