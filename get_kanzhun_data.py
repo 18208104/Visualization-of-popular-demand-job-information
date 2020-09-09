@@ -42,17 +42,8 @@ def get_page(url):
     page_count = json_data['resdata']['pageCount']
     print(page_count)
 
-    '''if page_number<1000:
-        page_number=1000
-    else:
-        page_number=1000
-     '''
-    '''
-    先爬1000页
-    '''
     # 调用get_info函数，传入url和页数
     get_info(page_count)
-
 
 # 定义获取招聘信息函数
 def get_info( page):
@@ -91,7 +82,6 @@ def get_info( page):
         except requests.exceptions.ConnectionError:
             print("requests.exceptions.ConnectionError")
             pass
-
 
 # 主程序入口
 if __name__ == '__main__':

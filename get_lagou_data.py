@@ -18,13 +18,13 @@ def create_csv():
     csv_head = ['positionName', 'companyFullName', 'companySize', 'industryField', 'financeStage', 'firstType',
                 'secondType', 'thirdType', 'positionLables', 'createTime', 'city', 'district', 'businessZones',
                 'salary', 'workYear', 'jobNature', 'education', 'positionAdvantage']
-    with open('lagou11.csv', 'w',newline="",encoding='utf-8') as f:
+    with open('lagou1.csv', 'w',newline="",encoding='utf-8') as f:
         csv_write = csv.DictWriter(f, fieldnames=csv_head)  # 提前预览列名，当下面代码写入数据时，会将其一一对应。
         #csv_write.writerow(csv_head)
         csv_write.writeheader()
 
 def add_csv(data):
-    path = "lagou11.csv"
+    path = "lagou1.csv"
     with open(path, 'a+',newline="",encoding='utf-8') as fd:
         w = csv.DictWriter(fd, data.keys())
         w.writerow(data)
@@ -48,12 +48,12 @@ def get_page(url, params):
     # 解析json文件，后跟中括号为解析的路径
     total_Count = json_data['content']['positionResult']['totalCount']
     page_number = int(total_Count / 15)
-    if page_number<1000:
-        page_number=1000
+    if page_number<30:
+        page_number=200
     else:
-        page_number=1000
+        page_number=200
     '''
-    先爬1000页
+    先爬200页
     '''
     # 调用get_info函数，传入url和页数
     get_info(url, page_number)
@@ -120,5 +120,5 @@ if __name__ == '__main__':
         "pn": 1,
         "kd": ""
     }
-    #create_csv()
+    create_csv()
     get_page(url, params)
